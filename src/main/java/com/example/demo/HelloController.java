@@ -11,7 +11,7 @@ public class HelloController {
     @RequestMapping("/")
     @ResponseBody
 	public String index() {
-		return "안녕하세요, 스프링입니다.";
+		return "안녕하세요, 스프링입니다";
 	}
 
 }
