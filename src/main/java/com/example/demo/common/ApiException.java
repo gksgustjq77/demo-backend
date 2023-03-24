@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @Data
 @ToString
-public class ApiException {
+public class ApiException  {
 
     private static final long serialVersionUID = -8832746191965751891L;
 
@@ -19,7 +19,7 @@ public class ApiException {
 
     public ApiException(ApiStatus status) {
         this.status = status;
-        this.message = status.getMessage();
+        this.message = message;
     }
 
     public ApiException(ApiStatus status, String message) {

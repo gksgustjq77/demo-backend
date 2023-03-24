@@ -9,7 +9,8 @@
             member_role,
             member_password,
             member_name,
-            member_user_nick
+            member_user_nick,            
+            member_reg
         )
         VALUES (
             #{memberId},
@@ -17,9 +18,19 @@
             #{memberRole},
             #{memberPassword},
             #{memberName},
-            #{memberUserNick}
+            #{memberUserNick},            
+            NOW()
         ) 
         <!-- <selectKey resultType="String" keyProperty="memberId" keyColumn="member_id">
         </selectKey> -->
 	</insert>
+
+    <select id="selUserInfo" parameterType="memberVO" resultType="memberVO">
+        select
+            member_username, 
+        	member_password
+        from member 
+       	where member_username = #{memberUserName}
+        and member_auth  = 1
+    </select>
 </mapper>

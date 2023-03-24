@@ -7,4 +7,6 @@ import com.example.demo.member.service.MemberVO;
 @Mapper
 public interface MemberMapper {
     int insJoinMember(MemberVO memberVO) throws Exception;
+
+	MemberVO selUserInfo(MemberVO memberVO) throws Exception;
 }

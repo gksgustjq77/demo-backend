@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mail.service.impl.MailMapper">
+    <select id="selByEmail" parameterType="memberVO" resultType="memberVO">
+        select
+            member_id, 
+            member_username,
+            member_auth_code 
+        from member
+        where member_username = #{memberUserName}
+        order by member_reg desc
+        limit 1 
+    </select>
+
+    <update id="updAuthCode" parameterType="memberVO">
+        update member
+            SET member_auth_code = #{memberAuthCode}
+        where member_username = #{memberUserName}
+        and member_reg = (select max(member_reg))
+    </update>
+
+    <update id="updMemberAuth" parameterType="memberVO">
+        update member
+            SET member_auth = 1
+        where member_id = #{memberId}     
+    </update>
+</mapper>

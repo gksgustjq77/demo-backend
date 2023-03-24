@@ -1,10 +1,13 @@
 package com.example.demo.member.service;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberVO {
-    
+
     private Long memberId;
     private String memberUserName;
     private String memberName;
@@ -19,5 +22,5 @@ public class MemberVO {
     private String memberImageType;
     private String memberImageName;
     private String memberImageUuid;
-    private String authCode;
+    private String memberAuthCode;
 }

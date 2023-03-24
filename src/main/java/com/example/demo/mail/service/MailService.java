@@ -2,8 +2,11 @@ package com.example.demo.mail.service;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.common.ApiException;
+import com.example.demo.common.exception.ApiStatus;
 import com.example.demo.config.DemoConfig;
 import com.example.demo.config.MailConfig;
+import com.example.demo.mail.service.impl.MailMapper;
 import com.example.demo.member.service.MemberVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class MailService {
     
     @Autowired
     MailConfig mailConfig;
+
+    @Autowired
+    MailMapper mailMapper;
 
     @Autowired
     private static JavaMailSender mailSender;
@@ -51,6 +57,11 @@ public class MailService {
         try {
             MimeMessage mimeMessage = createMessage(authCode, email);
             mailSender.send(mimeMessage);
+
+            MemberVO memVO = new MemberVO();
+            memVO.setMemberAuthCode(authCode);
+            memVO.setMemberUserName(email);
+            mailMapper.updAuthCode(memVO);
         } catch (MailException mailException) {
             mailException.printStackTrace();
             throw new IllegalAccessException();
@@ -58,7 +69,18 @@ public class MailService {
     }
     
     public ResponseEntity<?> verifiCation(MemberVO memberVO) throws Exception {
+        MemberVO memVO = new MemberVO();
+        try {
+            memVO = mailMapper.selByEmail(memberVO);
+        
+            if (memVO.getMemberAuthCode().equals(memberVO.getMemberAuthCode())) {
+                mailMapper.updMemberAuth(memVO);
+            }
 
-        return null;
+          return ResponseEntity.ok(new ApiException(ApiStatus.AP_SUCCESS, "성공"));   
+        } catch (Exception e) {
+          return ResponseEntity.ok(new ApiException(ApiStatus.AP_FAIL));  
+        }
     }
 }
+ 
