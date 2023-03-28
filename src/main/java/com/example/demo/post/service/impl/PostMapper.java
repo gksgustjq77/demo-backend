@@ -13,5 +13,7 @@ public interface PostMapper {
 
     List<CarmelHashMap> selMyPostLst(PostVO postVO) throws Exception;
 
-    HashMap<String, Object> selMyProfileCnt(PostVO postVO);
+    HashMap<String, Object> selMyProfileCnt(PostVO postVO) throws Exception;
+
+    List<CarmelHashMap> selPostLst(PostVO postVO) throws Exception;
 }

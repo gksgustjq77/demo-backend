@@ -25,10 +25,24 @@ public class PostController {
         return postService.selMyPostLst(postVO);
     }
 
+    @RequestMapping(value = "/selPostLst", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> selPostLst(@RequestBody PostVO postVO) throws Exception {
+        System.out.println(postVO);
+        return postService.selPostLst(postVO);
+    }
+
     @RequestMapping(value = "/selMyProfileCnt", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<?> selMyProfileCnt(@RequestBody PostVO postVO) throws Exception {
         System.out.println(postVO);
         return postService.selMyProfileCnt(postVO);
+    }
+
+    @RequestMapping(value = "/selCommentLst", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> selCommentLst(@RequestBody PostVO postVO) throws Exception {
+        System.out.println(postVO);
+        return postService.selCommentLst(postVO);
     }
 }

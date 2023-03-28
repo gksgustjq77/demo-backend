@@ -46,4 +46,21 @@ public class PostServiceImpl implements PostService {
 
     }
 
+    @Override
+    public ResponseEntity<?> selPostLst(PostVO postVO) throws Exception {
+
+        List<CarmelHashMap> selPostLst = postMapper.selPostLst(postVO);
+
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("data", selPostLst);
+        resultMap.put("result", new ApiException(ApiStatus.AP_SUCCESS, "성공"));
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> selCommentLst(PostVO postVO) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'selCommentLst'");
+    }
+
 }

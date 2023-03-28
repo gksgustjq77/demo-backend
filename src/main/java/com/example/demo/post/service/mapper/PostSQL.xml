@@ -20,4 +20,29 @@
         from `member` m
         where m.member_id  = #{memberId}
     </select>
+
+
+    <select id="selPostLst" parameterType="postVO" resultType="carmelHashMap">
+        SELECT            
+            p.post_id,
+                (SELECT GROUP_CONCAT(h1.hashtag_name SEPARATOR ',') as json_array 
+                    FROM hashtag_posts hp1  
+                    join hsahtags h1 on  hp1.hashtag_id = h1.hsahtag_id 
+                where hp1.post_id = p.post_id)  as hashtagName,                
+            pi2.post_image_id,
+            p.post_upload_date,
+            pi2.post_image_url,            
+            pi2.post_image_type,
+            p.post_content,
+            m.member_username,
+            m.member_id,
+            m.member_user_nick,
+            m.member_image_url  
+        FROM posts p
+        JOIN member m ON p.member_id = m.member_id
+        JOIN post_images pi2 ON p.post_id = pi2.post_id
+            WHERE p.member_id IN (
+            SELECT member_id FROM follows WHERE follow_member_id = #{memberId}
+            ) OR p.member_id = #{memberId}   
+    </select>
 </mapper>

@@ -13,4 +13,5 @@ public class PostVO {
     private String PostImageName;
     private String PostImageUuid;
     private String PostImageAltText;
+    private String[] hashtagName;
 }

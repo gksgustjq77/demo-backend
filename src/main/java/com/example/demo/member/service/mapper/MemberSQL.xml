@@ -27,7 +27,8 @@
 
     <select id="selUserInfo" parameterType="memberVO" resultType="memberVO">
         select
-            member_username, 
+            member_username,
+            member_id, 
         	member_password
         from member 
        	where member_username = #{memberUserName}
